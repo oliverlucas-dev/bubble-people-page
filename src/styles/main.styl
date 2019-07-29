@@ -22,7 +22,9 @@ easy-click()
 
 c-deep-purple = #28143f
 body
-  background c-deep-purple
+  // background c-deep-purple
+  background-image url('i/amplify-bg.jpg')
+  background-size  cover
   font-size 16px
   margin  0
   padding 0
@@ -34,7 +36,7 @@ body
   rect 100%
   position fixed
   nw 0
-  background rgba(#28143f, 1)
+  
   z-index 30
   opacity 1
   transition all .8s ease-out
@@ -75,7 +77,18 @@ body
   nw 0
   z-index 10
   color white
-  
+.modal-bg
+  rect 100%
+  position fixed
+  nw 0
+  background-image url('i/product-content-bg.png')
+  background-size  cover
+  z-index 30
+  opacity 1
+  opacity 0
+  z-index 0
+  transition all .8s ease-out
+  procWidth = 150
 .wrapper
   position    absolute
   z-index     1
@@ -226,6 +239,11 @@ contentHeight = 280
   &__img
     width         100%
     border-radius 80px
+  &__img1       
+    background-image url('i/ian0.jpg')
+    background-size  cover
+    background-color black
+
 .dust
   position  absolute
   rect      200*PX

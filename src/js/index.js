@@ -2301,7 +2301,8 @@ import '../styles/main.styl';
 	  showOnEl: function (el) {
 	    var _this2 = this;
 	    this.prevEl = this.currentEl;this.currentEl = el;
-	    this.prevEl && (this.prevEl.style["z-index"] = 0);
+		this.prevEl && (this.prevEl.style["z-index"] = 0);
+		console.log("show element");
 	    // return immediately on edges
 	    if (el.delta < 0.2) {
 	      return;
@@ -2309,11 +2310,15 @@ import '../styles/main.styl';
 	    var x = el.x - this.wWidth / 2 - this.xOffset,
 	        y = el.y - this.wHeight / 2 - this.yOffset,
 	        innerEl = el.querySelector(".particle__inner"),
-	        contentEl = el.querySelector(".particle__content"),
+			contentEl = el.querySelector(".particle__content"),
+			modalOverlay = document.querySelector("#modal-bg"),
 	        tween = new mojs.Tween();
-
+		console.log(modalOverlay);
 	    this.isOpen = true;el.style["z-index"] = 20;this.iscroll.enabled = false;
-	    this.showInnerCircle(el.x + 75, el.y + 75);this.iscroll.scrollTo(-x, -y, 500 * this.S);
+		this.showInnerCircle(el.x + 75, el.y + 75);this.iscroll.scrollTo(-x, -y, 500 * this.S);
+		
+		modalOverlay.style["z-index"] = 1;
+		modalOverlay.style["opacity"] = 0.75 + 0.25;
 
 	    var soundTimeline = new mojs.Timeline({
 	      delay: 0 * this.S, onStart: function () {
@@ -2324,8 +2329,9 @@ import '../styles/main.styl';
 	    var scaleDownTween = new mojs.Timeline({
 	      duration: 300 * this.S, easing: "expo.out",
 	      onUpdate: function (p) {
-	        mojs.h.setPrefixedStyle(innerEl, "transform", "scale(" + (1 - 0.25 * p) + ") translateZ(0)");
-	        innerEl.style.opacity = 1 - 0.25 * p;
+	        //mojs.h.setPrefixedStyle(innerEl, "transform", "scale(" + (1 - 0.25 * p) + ") translateZ(0)");
+			innerEl.style.opacity = 1 - 0.25 * p;
+			//mojs.h.setPrefixedStyle(innerEl, "transition", "scale(all .2s ease-in)");
 	      }
 	    });
 
@@ -2344,8 +2350,18 @@ import '../styles/main.styl';
 	      onUpdate: function (p) {
 	        var scaleSize = 19 * mojs.easing.cubic["in"](p);
 	        scaleSize = Math.max(0.75, scaleSize);
-	        var scale = "scale(" + scaleSize + ") translateZ(0)";
-	        mojs.h.setPrefixedStyle(innerEl, "transform", scale);
+			var scale = "scale(" + scaleSize + ") translateZ(0)";
+			// modalOverlay = modalOverlay.style.opacity = 0.75 + 0.25;
+			//var modalOverlay = document.querySelector("#modal-bg");
+			//this.modalOverlay = document.querySelector("#modal-bg");
+		   // console.log(modalOverlay);
+			var imageURL = 	innerEl.style.backgroundImage;
+
+			//console.log(imageURL);
+
+			//mojs.h.setPrefixedStyle(innerEl, "transform", scale);
+			//mojs.h.setPrefixedStyle(innerEl, "background-image", "none");
+			//mojs.h.setPrefixedStyle(innerEl, "transition", "background 100ms linear");
 	        innerEl.style.opacity = 0.75 + 0.25 * mojs.easing.cubic.out(p);
 	      },
 	      onStart: function () {
@@ -2383,8 +2399,14 @@ import '../styles/main.styl';
 	    this.iscroll.enabled = true;this.isOpen = false;this.hideClose();
 
 	    var innerEl = this.currentEl.querySelector(".particle__inner"),
-	        scaleDownTween = new mojs.Tween();
+			scaleDownTween = new mojs.Tween(),
+			modalOverlay = document.querySelector("#modal-bg");
+		
+		modalOverlay.style["z-index"] = 0;
+		modalOverlay.style["opacity"] = 0;	
 
+		//var imageURL = 	innerEl.style.backgroundImage;
+		//console.log(imageURL);
 	    var scaleDownTimeline = new mojs.Timeline({
 	      duration: 500 * this.S,
 	      onUpdate: function (p) {
@@ -2393,7 +2415,8 @@ import '../styles/main.styl';
 	            scaleSize = 0.75 + 18 * npe,
 	            scale = "scale(" + scaleSize + ") translateZ(0)";
 
-	        mojs.h.setPrefixedStyle(innerEl, "transform", scale);
+			//mojs.h.setPrefixedStyle(innerEl, "transform", scale);
+			//mojs.h.setPrefixedStyle(innerEl, "background-image", scale);
 	        mojs.h.setPrefixedStyle(_this.content, "transform", "scale(" + npe + ") translateZ(0)");
 	      }
 	    });
@@ -2409,7 +2432,7 @@ import '../styles/main.styl';
 	      onUpdate: function (p) {
 	        var scaleSize = 0.75 + 0.25 * mojs.easing.elastic.out(p),
 	            scale = "scale(" + scaleSize + ") translateZ(0)";
-	        mojs.h.setPrefixedStyle(innerEl, "transform", scale);
+	       // mojs.h.setPrefixedStyle(innerEl, "transform", scale);
 	      },
 	      onComplete: function () {
 	        if (_this.isOpen) {
@@ -2519,7 +2542,7 @@ import '../styles/main.styl';
 	        scene = el.querySelector(".shape"),
 	        shadow = el.querySelector("#js-shadow"),
 	        shadowWrap = el.querySelector("#js-shadow-wrap");
-
+			console.log("Show inner plastic");
 	    this.runDust();
 
 	    var mp = new mojs.MotionPath({
@@ -2667,7 +2690,8 @@ import '../styles/main.styl';
 	    this.content = document.querySelector("#js-content");
 	    this.curtain = document.querySelector("#js-curtain");
 	    this.progress = document.querySelector("#js-progress");
-	    this.progressGrad = document.querySelector("#js-progress-gradient");
+		this.progressGrad = document.querySelector("#js-progress-gradient");
+		
 	  },
 	  draw: function () {
 	    var origin = "" + this.bubleCenter.x + "px " + this.bubleCenter.y + "px",
