@@ -1,7 +1,7 @@
 .image-ie {
   width: 256*PX;
   height: 192*PX;
-  background: url('i/mojs-logo.png') no-repeat center center;
+  // background: url('i/mojs-logo.png') no-repeat center center;
   background-size: 100% 100%;
   position: absolute;
   top: 4.5*gs;
@@ -65,8 +65,9 @@ bgColorDark = darken(bgColor, 20);
   }
   .bm {
     .photon-shader {
-      background: url('i/ian0.jpg') no-repeat center center;
-      background-size: 100% 100%;
+      img {
+          width 100%
+      }
     }
   }
 }
@@ -156,7 +157,7 @@ bgColorDark = darken(bgColor, 20);
 }
 .cub-1 .tp, .cub-1 .bm {
   width:16em;
-  height:12em;
+  height:16em;
 }
 .cub-1 .face {
   background-color:#FFFFFF;
